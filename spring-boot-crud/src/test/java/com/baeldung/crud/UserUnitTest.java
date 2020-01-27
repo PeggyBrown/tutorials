@@ -41,7 +41,7 @@ public class UserUnitTest {
     }
     
     @Test
-    public void whenCalledtoString_thenCorrect() {
+    public void whenCalledToString_thenCorrect() {
         User user = new User("Julie", "julie@domain.com");
         assertThat(user.toString()).isEqualTo("User{id=0, name=Julie, email=julie@domain.com}");
     }

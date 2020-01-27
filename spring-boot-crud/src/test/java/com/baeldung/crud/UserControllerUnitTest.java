@@ -29,14 +29,14 @@ public class UserControllerUnitTest {
     }
 
     @Test
-    public void whenCalledshowSignUpForm_thenCorrect() {
+    public void whenCalledShowSignUpForm_thenCorrect() {
         User user = new User("John", "john@domain.com");
 
         assertThat(userController.showSignUpForm(user)).isEqualTo("add-user");
     }
     
     @Test
-    public void whenCalledaddUserAndValidUser_thenCorrect() {
+    public void whenCalledAddUserAndValidUser_thenCorrect() {
         User user = new User("John", "john@domain.com");
 
         when(mockedBindingResult.hasErrors()).thenReturn(false);
@@ -45,7 +45,7 @@ public class UserControllerUnitTest {
     }
 
     @Test
-    public void whenCalledaddUserAndInValidUser_thenCorrect() {
+    public void whenCalledAddUserAndInValidUser_thenCorrect() {
         User user = new User("John", "john@domain.com");
 
         when(mockedBindingResult.hasErrors()).thenReturn(true);
@@ -54,12 +54,12 @@ public class UserControllerUnitTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void whenCalledshowUpdateForm_thenIllegalArgumentException() {
+    public void whenCalledShowUpdateForm_thenIllegalArgumentException() {
         assertThat(userController.showUpdateForm(0, mockedModel)).isEqualTo("update-user");
     }
     
     @Test
-    public void whenCalledupdateUserAndValidUser_thenCorrect() {
+    public void whenCalledUpdateUserAndValidUser_thenCorrect() {
         User user = new User("John", "john@domain.com");
 
         when(mockedBindingResult.hasErrors()).thenReturn(false);
@@ -68,7 +68,7 @@ public class UserControllerUnitTest {
     }
 
     @Test
-    public void whenCalledupdateUserAndInValidUser_thenCorrect() {
+    public void whenCalledUpdateUserAndInValidUser_thenCorrect() {
         User user = new User("John", "john@domain.com");
 
         when(mockedBindingResult.hasErrors()).thenReturn(true);
@@ -77,7 +77,7 @@ public class UserControllerUnitTest {
     }
     
     @Test(expected = IllegalArgumentException.class)
-    public void whenCalleddeleteUser_thenIllegalArgumentException() {
+    public void whenCalledDeleteUser_thenIllegalArgumentException() {
         assertThat(userController.deleteUser(1l, mockedModel)).isEqualTo("index");
     }
 }
