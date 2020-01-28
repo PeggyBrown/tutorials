@@ -4,6 +4,7 @@ import com.baeldung.crud.entities.User;
 import com.baeldung.crud.repositories.UserRepository;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class UserControllerIntegrationTest {
     @Autowired
     private UserRepository repository;
 
+    @After
+    public void resetDb() {
+        repository.deleteAll();
+    }
+
     @Test
     public void whenValidInput_thenCreateUser() throws Exception {
         User bob = new User("bob", "bob@domain.com");
@@ -42,6 +48,17 @@ public class UserControllerIntegrationTest {
 
         List<User> found = (List<User>) repository.findAll();
         assertThat(found).extracting(User::getName).containsOnly("bob");
+    }
+
+    @Test
+    public void whenInvalidInput_thenCreateUser() throws Exception {
+        User bob = new User("bob", null);
+        this.mockMvc.perform(post("/adduser")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(bob)));
+
+        List<User> found = (List<User>) repository.findAll();
+        assertThat(found).extracting(User::getName).doesNotContain("bob");
     }
 
     @Test
