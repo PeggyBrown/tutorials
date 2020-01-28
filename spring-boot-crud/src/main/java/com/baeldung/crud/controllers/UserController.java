@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.baeldung.crud.entities.User;
 import com.baeldung.crud.repositories.UserRepository;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class UserController {
@@ -29,7 +30,7 @@ public class UserController {
     }
     
     @PostMapping("/adduser")
-    public String addUser(@Valid User user, BindingResult result, Model model) {
+    public String addUser(@RequestBody @Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "add-user";
         }

@@ -1,28 +1,26 @@
 package com.baeldung.crud;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
+import com.baeldung.crud.controllers.UserController;
+import com.baeldung.crud.entities.User;
+import com.baeldung.crud.repositories.UserRepository;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import com.baeldung.crud.controllers.UserController;
-import com.baeldung.crud.entities.User;
-import com.baeldung.crud.repositories.UserRepository;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class UserControllerUnitTest {
 
     private static UserController userController;
-    private static UserRepository mockedUserRepository;
     private static BindingResult mockedBindingResult;
     private static Model mockedModel;
 
     @BeforeClass
     public static void setUpUserControllerInstance() {
-        mockedUserRepository = mock(UserRepository.class);
+        UserRepository mockedUserRepository = mock(UserRepository.class);
         mockedBindingResult = mock(BindingResult.class);
         mockedModel = mock(Model.class);
         userController = new UserController(mockedUserRepository);
@@ -64,7 +62,7 @@ public class UserControllerUnitTest {
 
         when(mockedBindingResult.hasErrors()).thenReturn(false);
 
-        assertThat(userController.updateUser(1l, user, mockedBindingResult, mockedModel)).isEqualTo("index");
+        assertThat(userController.updateUser(1L, user, mockedBindingResult, mockedModel)).isEqualTo("index");
     }
 
     @Test
@@ -73,11 +71,11 @@ public class UserControllerUnitTest {
 
         when(mockedBindingResult.hasErrors()).thenReturn(true);
 
-        assertThat(userController.updateUser(1l, user, mockedBindingResult, mockedModel)).isEqualTo("update-user");
+        assertThat(userController.updateUser(1L, user, mockedBindingResult, mockedModel)).isEqualTo("update-user");
     }
     
     @Test(expected = IllegalArgumentException.class)
     public void whenCalledDeleteUser_thenIllegalArgumentException() {
-        assertThat(userController.deleteUser(1l, mockedModel)).isEqualTo("index");
+        assertThat(userController.deleteUser(1L, mockedModel)).isEqualTo("index");
     }
 }
